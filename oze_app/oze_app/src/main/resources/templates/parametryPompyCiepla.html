@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Parametry pompy ciepła</title>
+  <style>
+        table {
+            background-color: #18192D;
+            color: white;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body class="bg-dark text-white">
+<div class="container mt-4">
+  <h1>Parametry pompy ciepła</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Parametr</th>
+      <th scope="col">Wartość</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row">Producent</th>
+      <td>${pompa.producent}</td>
+    </tr>
+    <tr>
+      <th scope="row">Model</th>
+      <td>${pompa.model}</td>
+    </tr>
+    <tr>
+      <th scope="row">Moc</th>
+      <td>${pompa.moc} kW</td>
+    </tr>
+    <tr>
+      <th scope="row">SCOP</th>
+      <td>${pompa.scop}</td>
+    </tr>
+    <tr>
+      <th scope="row">Gwarancja</th>
+      <td>${pompa.gwarancja} lat</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

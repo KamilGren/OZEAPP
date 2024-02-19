@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Formularz Lokalizacji</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="bg-dark text-white">
+<div class="container mt-4">
+  <h2 class="text-white">Wprowadź lokalizację:</h2>
+  <form action="/processBuildingRequirements" method="post">
+    <div>
+      <label for="location">Lokacja:</label>
+      <input type="text" id="location" name="location" th:value="${location}" />
+    </div>
+    <div>
+      <label for="locationTemperature">Temperatura lokalizacji:</label>
+      <input type="text" id="locationTemperature" name="locationTemperature" th:value="${locationTemperature}" />
+    </div>
+    <div>
+      <label for="buildingType">Typ budynku:</label>
+      <select id="buildingType" name="buildingType" th:value="${buildingType}">
+        <option value="singleStory">Jednopiętrowy</option>
+        <option value="singleStoryWithUsableAttic">Jednopiętrowy z użytkowym strychem</option>
+        <option value="singleStoryWithUnusedAttic">Jednopiętrowy z nieużywanym strychem</option>
+        <option value="multiStory">Wielopiętrowy</option>
+        <option value="multiStoryWithUsableAttic">Wielopiętrowy z użytkowym strychem</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="buildingDimensionsX">Wymiar budynku X (m):</label>
+      <input type="text" id="buildingDimensionsX" name="buildingDimensionsX" th:value="${buildingDimensionsX}" />
+    </div>
+
+    <div>
+      <label for="buildingDimensionsY">Wymiar budynku Y (m):</label>
+      <input type="text" id="buildingDimensionsY" name="buildingDimensionsY" th:value="${buildingDimensionsY}" />
+    </div>
+
+    <div>
+      <label for="buildingDimensionsSum">Suma wymiarów budynku (m²):</label>
+      <input type="text" id="buildingDimensionsSum" name="buildingDimensionsSum" th:value="${buildingDimensionsSum}" />
+    </div>
+
+    <div>
+      <label for="heatedArea">Powierzchnia ogrzewana (m²):</label>
+      <input type="text" id="heatedArea" name="heatedArea" th:value="${heatedArea}" />
+    </div>
+
+    <div>
+      <label for="roomHeight">Wysokość pomieszczenia (m):</label>
+      <input type="text" id="roomHeight" name="roomHeight" th:value="${roomHeight}" />
+    </div>
+
+    <div>
+      <label for="roomHeatingTemperature">Temperatura pomieszczenia (ogrzewanie) (°C):</label>
+      <input type="text" id="roomHeatingTemperature" name="roomHeatingTemperature" th:value="${roomHeatingTemperature}" />
+    </div>
+
+    <div>
+      <label for="heatingPumpSetTemperature">Temperatura ustawiona pompy ciepła (°C):</label>
+      <input type="text" id="heatingPumpSetTemperature" name="heatingPumpSetTemperature" th:value="${heatingPumpSetTemperature}" />
+    </div>
+
+    <div>
+      <label for="roomCoolingTemperature">Temperatura pomieszczenia (chłodzenie) (°C):</label>
+      <input type="text" id="roomCoolingTemperature" name="roomCoolingTemperature" th:value="${roomCoolingTemperature}" />
+    </div>
+
+    <div>
+      <label for="coolingPumpSetTemperature">Temperatura ustawiona pompy chłodzenia (°C):</label>
+      <input type="text" id="coolingPumpSetTemperature" name="coolingPumpSetTemperature" th:value="${coolingPumpSetTemperature}" />
+    </div>
+
+    <div>
+      <label for="basementPresent">Czy istnieje piwnica:</label>
+      <select id="basementPresent" name="basementPresent" th:value="${basementPresent}">
+        <option value="true">Tak</option>
+        <option value="false">Nie</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="wallType">Typ ściany:</label>
+      <select id="wallType" name="wallType" th:value="${wallType}">
+        <option value="ceramicBrick">Cegła ceramiczna</option>
+        <option value="concreteBlock">Blok betonowy</option>
+        <option value="ceramicBlock">Blok ceramiczny</option>
+        <option value="wooden">Drewno</option>
+        <option value="frame">Rama</option>
+        <option value="concrete">Beton</option>
+        <option value="aeratedConcrete">Beton komórkowy</option>
+        <option value="porotherm">Porotherm</option>
+        <option value="ytong">Ytong</option>
+        <option value="silicate">Krzemian</option>
+        <option value="clinkerConcrete">Clinker betonowy</option>
+      </select>
+
+      <label for="wallThickness">Grubość ściany (cm):</label>
+      <input type="text" id="wallThickness" name="wallThickness" th:value="${wallThickness}" />
+    </div>
+
+    <div>
+      <label for="wallInsulation">Izolacja ściany:</label>
+      <select id="wallInsulation" name="wallInsulation" th:value="${wallInsulation}">
+        <option value="styrofoam">Styropian</option>
+        <option value="graphiteStyrofoam">Styropian grafitowy</option>
+        <option value="xps">XPS</option>
+        <option value="mineralWool">Wełna mineralna</option>
+        <option value="purFoam">Pianka PUR</option>
+      </select>
+
+      <label for="wallInsulationThickness">Grubość izolacji ściany (cm):</label>
+      <input type="text" id="wallInsulationThickness" name="wallInsulationThickness" th:value="${wallInsulationThickness}" />
+    </div>
+
+    <div>
+      <label for="roofInsulation">Izolacja dachu:</label>
+      <select id="roofInsulation" name="roofInsulation" th:value="${roofInsulation}">
+        <option value="styrofoam">Styropian</option>
+        <option value="graphiteStyrofoam">Styropian grafitowy</option>
+        <option value="xps">XPS</option>
+        <option value="mineralWool">Wełna mineralna</option>
+        <option value="purFoam">Pianka PUR</option>
+      </select>
+
+      <label for="roofInsulationThickness">Grubość izolacji dachu (cm):</label>
+      <input type="text" id="roofInsulationThickness" name="roofInsulationThickness" th:value="${roofInsulationThickness}" />
+    </div>
+
+    <div>
+      <label for="floorInsulation">Izolacja podłogi:</label>
+      <select id="floorInsulation" name="floorInsulation" th:value="${floorInsulation}">
+        <option value="styrofoam">Styropian</option>
+        <option value="graphiteStyrofoam">Styropian grafitowy</option>
+        <option value="xps">XPS</option>
+        <option value="mineralWool">Wełna mineralna</option>
+        <option value="purFoam">Pianka PUR</option>
+      </select>
+
+      <label for="floorInsulationThickness">Grubość izolacji podłogi (cm):</label>
+      <input type="text" id="floorInsulationThickness" name="floorInsulationThickness" th:value="${floorInsulationThickness}" />
+    </div>
+
+    <div>
+      <label for="windowBlindType">Typ rolet okiennych:</label>
+      <select id="windowBlindType" name="windowBlindType" th:value="${windowBlindType}">
+        <option value="doubleGlazed">Podwójne przeszklone</option>
+        <option value="tripleGlazed">Potrójnie przeszklone</option>
+      </select>
+
+      <label for="windowBlindAmount">Ilość (1.5 x 1.5m) sztuk:</label>
+      <input type="text" id="windowBlindAmount" name="windowBlindAmount" th:value="${windowBlindAmount}" />
+    </div>
+
+    <div>
+      <label for="entranceDoorsAmount">Ilość drzwi wejściowych:</label>
+      <input type="text" id="entranceDoorsAmount" name="entranceDoorsAmount" th:value="${entranceDoorsAmount}" />
+    </div>
+
+    <div>
+      <label for="ventilationType">System wentylacji:</label>
+      <select id="ventilationType" name="ventilationType" th:value="${ventilationType}">
+        <option value="gravity">Grawitacyjny</option>
+        <option value="mechanical">Mechaniczny</option>
+        <option value="mechanicalWithHeatRecovery">Mechaniczny z odzyskiem ciepła</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="currentFuelType">Aktualny rodzaj paliwa</label>
+      <select id="currentFuelType" name="currentFuelType" onchange="showValue()">
+        <option value="">Wybierz rodzaj paliwa</option>
+        <option value="EcoCoal">EcoCoal</option>
+        <option value="NaturalGas">Gaz ziemny</option>
+        <option value="HeatingOil">Olej opałowy</option>
+        <option value="Pellet">Pellet</option>
+        <option value="HardCoal">Węgiel kamienny</option>
+        <option value="LPG">LPG</option>
+      </select>
+    </div>
+
+    <div id="fuelInfo" class="fuel-info" style="display:none;">
+      <label for="heatingSourceEfficiency">Sprawność źródła ciepła: </label>
+      <span id="heatingSourceEfficiency" name="heatingSourceEfficiency" class="heatingSourceEfficiency"></span>
+      <input type="hidden" name="heatingSourceEfficiency" id="hiddenHeatingSourceEfficiency" />
+
+      <br>
+
+      <label for="fuelUsageAmount">Ilość zużywanego paliwa: </label>
+      <input type="text" class="fuelUsageAmount" name="fuelUsageAmount" id="fuelUsageAmount" />
+      <span id="fuelUsageAmountInfo" class="fuelUsageAmount"></span>
+
+      <br>
+
+      <label for="fuelEnergyValue">Wartość energetyczna paliwa: </label>
+      <span id="fuelEnergyValue" class="fuelEnergyValue"></span>
+      <span id="fuelEnergyValueUnit" class="fuelEnergyValueUnit"></span>
+      <input type="hidden" name="fuelEnergyValue" id="hiddenFuelEnergyValue" />
+    </div>
+    <br>
+
+    <div>
+      <label for="peopleCountWater">Liczba osób:</label>
+      <input type="number" id="peopleCountWater" name="peopleCountWater" min="1" oninput="calculateWaterUsage()">
+    </div>
+
+    <div>
+      <label for="waterUsageMethod">Metoda zużycia wody:</label>
+      <select id="waterUsageMethod" name="waterUsageMethod" onchange="calculateWaterUsage()">
+        <option value="shower">Prysznic</option>
+        <option value="shower-bath">Prysznic-Wanna</option>
+        <option value="bath">Wanna</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="waterDemand">Zapotrzebowanie na wodę:</label>
+      <span id="waterDemand"></span> litrów
+
+    </div>
+  </form>
+
+  <script>
+    // Zmienna przechowująca obliczoną wartość
+    let waterDemand = 0;
+
+    function calculateWaterUsage() {
+      const peopleCount = parseInt(document.getElementById("peopleCountWater").value);
+      const waterUsageMethod = document.getElementById("waterUsageMethod").value;
+      const factors = {
+        shower: 50,
+        "shower-bath": 60,
+        bath: 70,
+      };
+
+      waterDemand = peopleCount * factors[waterUsageMethod];
+
+      // Wyświetl wynik w elemencie "waterDemand"
+      document.getElementById("waterDemand").innerText = waterDemand + " litrów";
+    }
+
+    // Uruchom funkcję na starcie
+    calculateWaterUsage();
+
+    // Aktualizuj pole "waterDemand" na bieżąco
+    document.getElementById("peopleCountWater").addEventListener("input", calculateWaterUsage);
+    document.getElementById("waterUsageMethod").addEventListener("change", calculateWaterUsage);
+
+    console.log("Wartość waterDemand:", waterDemand);
+
+  </script>
+
+    <script>
+  function showValue() {
+    var selectedValue = document.getElementById("currentFuelType").value;
+    var selectedBlock = document.getElementById('fuelInfo');
+
+    var fuelInfoMap = {
+      'EcoCoal': {
+        'efficiency': '75%',
+        'amount': 'kg',
+        'energyValue': '6.4',
+        'energyValueUnit': 'kWh/kg'
+      },
+      'NaturalGas': {
+        'efficiency': '95%',
+        'amount': 'm³',
+        'energyValue': '10',
+        'energyValueUnit': 'kWh/m³'
+      },
+      'LPG': {
+        'efficiency': '95%',
+        'amount': 'l',
+        'energyValue': '6.85',
+        'energyValueUnit': 'kWh/l'
+      },
+      'HeatingOil': {
+        'efficiency': '90%',
+        'amount': 'l',
+        'energyValue': '10',
+        'energyValueUnit': 'kWh/l'
+      },
+      'Pellet': {
+        'efficiency': '85%',
+        'amount': 'kg',
+        'energyValue': '4.9',
+        'energyValueUnit': 'kWh/kg'
+      },
+      'HardCoal': {
+        'efficiency': '55%',
+        'amount': 'kg',
+        'energyValue': '7.2',
+        'energyValueUnit': 'kWh/kg'
+      }
+    };
+
+    if (fuelInfoMap[selectedValue]) {
+      selectedBlock.style.display = 'block';
+
+      var efficiencyWithoutPercent = fuelInfoMap[selectedValue]['efficiency'].replace('%', '');
+
+      document.getElementById('heatingSourceEfficiency').innerText = efficiencyWithoutPercent + '%';
+      document.getElementById('hiddenHeatingSourceEfficiency').value = efficiencyWithoutPercent;
+      document.getElementById('fuelEnergyValue').innerText = fuelInfoMap[selectedValue]['energyValue'];
+      document.getElementById('hiddenFuelEnergyValue').value = fuelInfoMap[selectedValue]['energyValue'];
+      document.getElementById('fuelEnergyValueUnit').innerText = fuelInfoMap[selectedValue]['energyValueUnit'];
+
+      var amountInfo = 'Podaj ilość zużywanego paliwa (' + fuelInfoMap[selectedValue]['amount'] + '): ' +
+        'Jednostka: ' + fuelInfoMap[selectedValue]['energyValueUnit'];
+      document.getElementById('fuelUsageAmountInfo').innerText = amountInfo;
+    } else {
+      selectedBlock.style.display = 'none';
+    }
+  }
+
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <div>
+      <button type="submit">Przetwórz Lokalizację</button>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

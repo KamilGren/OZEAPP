@@ -1,0 +1,2 @@
+Konto root na AWS: Kamil/Kamil1202 https://612835037341.signin.aws.amazon.com/console
+

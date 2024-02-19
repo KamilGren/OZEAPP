@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Wynik Zapotrzebowań Budynku</title>
+</head>
+<body>
+
+<div>
+  <h2>Zapotrzebowania budynku zostały pomyślnie zapisane do bazy danych.</h2>
+
+  <p>Lokacja: <span th:text="${buildingRequirements.location}"></span></p>
+  <p>Typ budynku: <span th:text="${buildingRequirements.buildingType}"></span></p>
+  <p>Wymiary budynku (X): <span th:text="${buildingRequirements.buildingDimensionsX}"></span></p>
+  <p>Wymiary budynku (Y): <span th:text="${buildingRequirements.buildingDimensionsY}"></span></p>
+  <p>Wymiary budynku (suma): <span th:text="${buildingRequirements.buildingDimensionsSum}"></span></p>
+  <p>Obszar ogrzewany: <span th:text="${buildingRequirements.heatedArea}"></span></p>
+  <p>Wysokość pomieszczenia: <span th:text="${buildingRequirements.roomHeight}"></span></p>
+  <p>Temperatura pomieszczenia: <span th:text="${buildingRequirements.roomHeatingTemperature}"></span></p>
+  <p>Temperatura ustawiona na pompie ciepła: <span th:text="${buildingRequirements.heatingPumpSetTemperature}"></span></p>
+  <p>Temperatura chłodzenia pomieszczenia: <span th:text="${buildingRequirements.roomCoolingTemperature}"></span></p>
+  <p>Temperatura ustawiona na pompie chłodzenia: <span th:text="${buildingRequirements.coolingPumpSetTemperature}"></span></p>
+  <p>Obecność piwnicy: <span th:text="${buildingRequirements.basementPresent}"></span></p>
+  <p>Typ ściany: <span th:text="${buildingRequirements.wallType}"></span></p>
+  <p>Grubość ściany: <span th:text="${buildingRequirements.wallThickness}"></span></p>
+  <p>Izolacja ściany: <span th:text="${buildingRequirements.wallInsulation}"></span></p>
+  <p>Grubość izolacji ściany: <span th:text="${buildingRequirements.wallInsulationThickness}"></span></p>
+  <p>Izolacja dachu: <span th:text="${buildingRequirements.roofInsulation}"></span></p>
+  <p>Grubość izolacji dachu: <span th:text="${buildingRequirements.roofInsulationThickness}"></span></p>
+  <p>Izolacja podłogi: <span th:text="${buildingRequirements.floorInsulation}"></span></p>
+  <p>Grubość izolacji podłogi: <span th:text="${buildingRequirements.floorInsulationThickness}"></span></p>
+  <p>Typ rolety okiennej: <span th:text="${buildingRequirements.windowBlindType}"></span></p>
+  <p>Ilość rolet okiennych (1.5 x 1.5m): <span th:text="${buildingRequirements.windowBlindAmount}"></span></p>
+  <p>Ilość drzwi wejściowych: <span th:text="${buildingRequirements.entranceDoorsAmount}"></span></p>
+  <p>Typ wentylacji: <span th:text="${buildingRequirements.ventilationType}"></span></p>
+  <p>Obecny rodzaj paliwa: <span th:text="${buildingRequirements.currentFuelType}"></span></p>
+  <p>Ilość zużywanego paliwa: <span th:text="${buildingRequirements.fuelUsageAmount}"></span></p>
+  <p>Jednostka zużywanego paliwa: <span th:text="${buildingRequirements.fuelUsageUnit}"></span></p>
+  <p>Wartość energetyczna paliwa: <span th:text="${buildingRequirements.fuelEnergyValue}"></span></p>
+  <p>Liczba osób: <span th:text="${buildingRequirements.peopleCountWater}"></span></p>
+  <p>Metoda zużycia wody dziennie: <span th:text="${buildingRequirements.waterUsageMethod}"></span></p>
+  <p>Zapotrzebowanie na wodę: <span th:text="${buildingRequirements.waterDemand}"></span> l</p>
+
+  <!-- Dodaj kolejne pola wynikowe analogicznie do powyższego -->
+
+</div>
+
+</body>
+</html>
