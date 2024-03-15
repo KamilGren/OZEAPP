@@ -32,6 +32,10 @@ public interface HeatPumpRepository extends JpaRepository<HeatPump, Long> {
     public List<HeatPump> findHeatPumpByProducentAndModel(String producent, String model);
 
 
+    @Query("SELECT DISTINCT hp.model FROM HeatPump hp WHERE hp.producent = :producent")
+    List<String> findHeatPumpModelsByProducent(@Param("producent") String producent);
+
+
 
 
 

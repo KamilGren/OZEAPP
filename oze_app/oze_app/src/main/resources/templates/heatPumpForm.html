@@ -18,13 +18,13 @@
 
 <body>
 
-<div class="container mt-4">
-  <form id="heatPumpForm" action="/api/heatpumps/searchPump" onsubmit="submitForm()" method="GET">
+<div class="container mt-4" action="/api/heatpumps/searchPump" method="POST">
+  <form id="heatPumpForm" >
 
     <div class="form-group">
       <label for="producent">Producent:</label>
       <select class="form-control" id="producent" name="producent" onchange="loadTypes()">
-        <option th:each="producent : ${heatPumpProducents}" th:value="${producent}" th:text="${producent}"></option>
+        <option th:each="producent : ${heatPumpProducents}"   th:value="${producent}" th:text="${producent}"></option>
       </select>
     </div>
 
@@ -41,68 +41,92 @@
       </select>
     </div>
 
+
+    <div id="heatPumpData" class="container mt-4">
+      <div class="pump-data">
+        <label>Jednostka wewnętrzna:</label>
+        <span id="jednostkaWewnetrzna"></span>
+      </div>
+      <div class="pump-data">
+        <label>Jednostka zewnętrzna:</label>
+        <span id="jednostkaZewnetrzna"></span>
+      </div>
+      <div class="pump-data">
+        <label>Moc znamionowa:</label>
+        <span id="mocZnamionowa"></span>
+      </div>
+      <div class="pump-data">
+        <label>Moc grzałki:</label>
+        <span id="mocGrzalki"></span>
+      </div>
+      <div class="pump-data">
+        <label>Zasilanie:</label>
+        <span id="zasilanie"></span>
+      </div>
+      <div class="pump-data">
+        <label>SCOP:</label>
+        <span id="scop"></span>
+      </div>
+      <div class="pump-data">
+        <label>Gwarancja:</label>
+        <span id="gwarancja"></span>
+      </div>
+    </div>
+
   </form>
 </div>
 
-
 <script th:inline="javascript">
-
-
+    /* Function to load types */
     function loadTypes() {
-        var producentSelect = document.getElementById('producent');
+        // Get the selected producer, model, and type elements
+        var producerSelect = document.getElementById('producent');
         var modelSelect = document.getElementById('model');
-        var typSelect = document.getElementById('typ');
+        var typeSelect = document.getElementById('typ');
 
+        // Get the div elements for displaying data
+        var internalUnitDiv = document.getElementById('jednostkaWewnetrzna');
+        var externalUnitDiv = document.getElementById('jednostkaZewnetrzna');
+        var nominalPowerDiv = document.getElementById('mocZnamionowa');
+        var heatingPowerDiv = document.getElementById('mocGrzalki');
+        var powerSupplyDiv = document.getElementById('zasilanie');
+        var scopDiv = document.getElementById('scop');
+        var warrantyDiv = document.getElementById('gwarancja');
 
-       if (producentSelect.value && modelSelect.value)
-       {
+        // Check if both producer and model are selected
+        if (producerSelect.value && modelSelect.value) {
+            // Make AJAX request to get types
+            $.get('/api/heatpumps/searchPump?producent=' + producerSelect.value + '&model=' + modelSelect.value, function(data) {
+                // Clear and update type select options
+                typeSelect.innerHTML = '<option value="" selected>-- Select type --</option>';
+                data.forEach(function(type) {
+                    typeSelect.innerHTML += '<option value="' + type + '">' + type + '</option>';
+                });
 
-        $.get('/api/heatpumps/getTypes?producent=' + producentSelect.value + '&model=' + modelSelect.value, function (data) {
-            typSelect.innerHTML = '<option value="" selected>-- Select type --</option>';
+                // Update data in divs
+                internalUnitDiv.textContent = data.internalUnit;
+                externalUnitDiv.textContent = data.externalUnit;
+                nominalPowerDiv.textContent = data.power;
+                heatingPowerDiv.textContent = data.heater;
+                powerSupplyDiv.textContent = data.powerSupply;
+                scopDiv.textContent = data.scop;
+                warrantyDiv.textContent = data.warranty;
 
-            console.log(data);
-            data.forEach(function (typ) {
-                typSelect.innerHTML += '<option value="' + typ + '">' + typ + '</option>';
+                console.log(data.warranty);
             });
-
-        });
-    } else {
-        // Jeśli producent lub model są null, możemy wyczyścić listę typów
-        typSelect.innerHTML = '<option value="" selected>-- Select type --</option>';
+        } else {
+            // Clear type select options and data divs if either producer or model is not selected
+            typeSelect.innerHTML = '<option value="" selected>-- Select type --</option>';
+            internalUnitDiv.textContent = '';
+            externalUnitDiv.textContent = '';
+            nominalPowerDiv.textContent = '';
+            heatingPowerDiv.textContent = '';
+            powerSupplyDiv.textContent = '';
+            scopDiv.textContent = '';
+            warrantyDiv.textContent = '';
+        }
     }
-    }
-
-   function submitForm() {
-     return true;
-}
-
-<!--     function displayResults(data) {-->
-<!--        var resultsSection = document.getElementById('searchResults');-->
-<!--        var resultTableBody = document.getElementById('resultTableBody');-->
-
-<!--        // Czyść wyniki-->
-<!--        resultTableBody.innerHTML = '';-->
-
-<!--        // Wyświetl wyniki, jeśli są dostępne-->
-<!--        if (data.length > 0) {-->
-<!--            resultsSection.style.display = 'block'; // Pokaż sekcję wyników-->
-
-<!--            data.forEach(function (heatPump) {-->
-<!--                var row = '<tr>' +-->
-<!--                    '<td>' + heatPump.internalUnit + '</td>' +-->
-<!--                    '<td>' + heatPump.externalUnit + '</td>' +-->
-<!--                    '<td>' + heatPump.nominalPower + '</td>' +-->
-<!--                    '<td>' + heatPump.heaterPower + '</td>' +-->
-<!--                    '<td>' + heatPump.powerSupply + '</td>' +-->
-<!--                    '<td>' + heatPump.scop + '</td>' +-->
-<!--                    '<td>' + heatPump.warranty + '</td>' +-->
-<!--                    '</tr>';-->
-<!--                resultTableBody.innerHTML += row;-->
-<!--            });-->
-<!--        } else {-->
-<!--            resultsSection.style.display = 'none'; // Ukryj sekcję wyników, jeśli brak wyników-->
-<!--        }-->
-<!--    }-->
+</script>
 
 
 </script>

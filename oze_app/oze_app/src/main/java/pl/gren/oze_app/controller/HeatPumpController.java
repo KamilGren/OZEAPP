@@ -126,7 +126,7 @@ public class HeatPumpController {
 
 
     @PostMapping("/searchPump")
-    public ResponseEntity<?> searchHeatPump(@RequestParam("producent") String producent,
+    public String searchHeatPump(@RequestParam("producent") String producent,
                                             @RequestParam("model") String model,
                                             @RequestParam("typ") String typ,
                                             Model model1) {
@@ -134,11 +134,14 @@ public class HeatPumpController {
         List<HeatPump> heatPumps = heatPumpService.getHeatPumpByProducentModelTyp(producent, model, typ);
         model1.addAttribute("heatPump", heatPumps);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/heatPumpParams");
+        System.out.println("halo halo");
 
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Location", "/heatPumpParams"); // to szuka kontrolera
         // Dodaj nagłówki i dane do odpowiedzi
-        return new ResponseEntity<>(heatPumps, headers, HttpStatus.FOUND);
+        // return new ResponseEntity<>(heatPumps, headers, HttpStatus.FOUND);
+
+        return "heatPumpForm";
     }
 
 
