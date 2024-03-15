@@ -1,0 +1,50 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="container mt-4">
+    <h2>Wyniki wyszukiwania</h2>
+
+    <table class="table" id="resultsTable">
+        <thead>
+        <tr>
+            <th>Producent</th>
+            <th>Model</th>
+            <th>Typ</th>
+            <br>
+            <th>Jednostka wewnętrzna</th>
+            <th>Jednostka zewnętrzna</th>
+            <th>Moc znamionowa</th>
+            <th>Moc grzałki</th>
+            <th>Zasilanie</th>
+            <th>SCOP</th>
+            <th>Gwarancja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Użyj Thymeleaf do iteracji przez wyniki i wyświetlenia ich -->
+        <tr th:each="heatPump : ${heatPump}">
+            <td th:text="${heatPump.producent}"></td>
+            <td th:text="${heatPump.model}"></td>
+            <td th:text="${heatPump.typ}"></td>
+            <br>
+            <td th:text="${heatPump.internalUnit}"></td>
+            <td th:text="${heatPump.externalUnit}"></td>
+            <td th:text="${heatPump.power}"></td>
+            <td th:text="${heatPump.heater}"></td>
+            <td th:text="${heatPump.powerSupply}"></td>
+            <td th:text="${heatPump.scop}"></td>
+            <td th:text="${heatPump.warranty}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

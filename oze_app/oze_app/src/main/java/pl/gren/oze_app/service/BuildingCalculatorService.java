@@ -324,13 +324,25 @@ public class BuildingCalculatorService {
         double lost5 = buildingRequirements.getLost5();
         double lost6 = buildingRequirements.getLost6();
 
-        double AllCOMath = lost1 + lost2 + lost3 + lost4 + lost5 + lost6;
+        double COValue = (lost1 + lost2 + lost3 + lost4 + lost5 + lost6) / 1000;
 
-        return AllCOMath;
+
+        buildingRequirements.setCOValue(COValue);
+
+        return COValue;
     }
     public double calculateFuel(BuildingRequirements buildingRequirements)
     {
-        return buildingRequirements.getFuelUsageAmount() * buildingRequirements.getFuelEnergyValue() * buildingRequirements.getHeatingSourceEfficiency() / 2000;
+        double fuel = buildingRequirements.getFuelUsageAmount() * buildingRequirements.getFuelEnergyValue() * buildingRequirements.getHeatingSourceEfficiency() / 2000;
+        buildingRequirements.setFuelValue(fuel);
+        return fuel;
+    }
+
+    public double calculateCWU(BuildingRequirements buildingRequirements)
+    {
+        double CWUValue = buildingRequirements.getWaterDemand() / buildingRequirements.getPeopleCountWater();
+        buildingRequirements.setCWUValue(CWUValue);
+        return CWUValue;
     }
 
 

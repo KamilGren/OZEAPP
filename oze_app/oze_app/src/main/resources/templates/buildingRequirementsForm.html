@@ -202,56 +202,58 @@
     </div>
     <br>
 
+    <script>
+       function calculateWaterUsage() {
+  // Pobierz wartości z pól formularza
+  var peopleCount = parseInt(document.getElementById("peopleCount").value);
+  var waterUsageMethod = document.getElementById("waterUsage").value;
+
+  // Oblicz zapotrzebowanie na wodę
+  var result;
+  switch (waterUsageMethod) {
+    case "shower":
+      result = peopleCount * 50;
+      break;
+    case "shower-bath":
+      result = peopleCount * 60;
+      break;
+    case "bath":
+      result = peopleCount * 70;
+      break;
+    default:
+      result = 0;
+      break;
+  }
+
+  // Zapisz wartość w formularzu
+  document.getElementById("waterDemand").value = result;
+
+  // Wyświetl wynik
+  document.getElementById("waterResult").innerText = result + " litrów";
+
+
+}
+    </script>
+
     <div>
       <label for="peopleCountWater">Liczba osób:</label>
-      <input type="number" id="peopleCountWater" name="peopleCountWater" min="1" oninput="calculateWaterUsage()">
+      <input type="text" id="peopleCountWater" name="peopleCountWater" />
     </div>
 
     <div>
-      <label for="waterUsageMethod">Metoda zużycia wody:</label>
+      <label for="waterUsageMethod">Zużycie wody dziennie:</label>
       <select id="waterUsageMethod" name="waterUsageMethod" onchange="calculateWaterUsage()">
         <option value="shower">Prysznic</option>
         <option value="shower-bath">Prysznic-Wanna</option>
-        <option value="bath">Wanna</option>
+        <option value="bath">Wanna/option>
       </select>
     </div>
 
     <div>
-      <label for="waterDemand">Zapotrzebowanie na wodę:</label>
-      <span id="waterDemand"></span> litrów
-
+      <label for="waterUsageResult">Wynik:</label>
+      <span class="waterUsageResult" id="waterUsageResult"></span>
     </div>
-  </form>
 
-  <script>
-    // Zmienna przechowująca obliczoną wartość
-    let waterDemand = 0;
-
-    function calculateWaterUsage() {
-      const peopleCount = parseInt(document.getElementById("peopleCountWater").value);
-      const waterUsageMethod = document.getElementById("waterUsageMethod").value;
-      const factors = {
-        shower: 50,
-        "shower-bath": 60,
-        bath: 70,
-      };
-
-      waterDemand = peopleCount * factors[waterUsageMethod];
-
-      // Wyświetl wynik w elemencie "waterDemand"
-      document.getElementById("waterDemand").innerText = waterDemand + " litrów";
-    }
-
-    // Uruchom funkcję na starcie
-    calculateWaterUsage();
-
-    // Aktualizuj pole "waterDemand" na bieżąco
-    document.getElementById("peopleCountWater").addEventListener("input", calculateWaterUsage);
-    document.getElementById("waterUsageMethod").addEventListener("change", calculateWaterUsage);
-
-    console.log("Wartość waterDemand:", waterDemand);
-
-  </script>
 
     <script>
   function showValue() {

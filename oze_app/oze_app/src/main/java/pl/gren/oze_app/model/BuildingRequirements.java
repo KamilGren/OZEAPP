@@ -43,6 +43,10 @@ public class BuildingRequirements {
     private double waterDemand;
     private String waterUsageMethod;
     private double heatingSourceEfficiency;
+    private double CWUValue;
+    private double COValue;
+    private double fuelValue;
+
 
 
     private double af47;
@@ -54,6 +58,7 @@ public class BuildingRequirements {
     public BuildingRequirements() {
 
     }
+
 
     public double getFuelEnergyValue() {
         return fuelEnergyValue;
@@ -77,6 +82,31 @@ public class BuildingRequirements {
 
     public void setHeatingSourceEfficiency(double heatingSourceEfficiency) {
         this.heatingSourceEfficiency = heatingSourceEfficiency;
+    }
+
+
+    public double getCWUValue() {
+        return CWUValue;
+    }
+
+    public void setCWUValue(double CWUValue) {
+        this.CWUValue = CWUValue;
+    }
+
+    public double getCOValue() {
+        return COValue;
+    }
+
+    public void setCOValue(double COValue) {
+        this.COValue = COValue;
+    }
+
+    public double getFuelValue() {
+        return fuelValue;
+    }
+
+    public void setFuelValue(double fuelValue) {
+        this.fuelValue = fuelValue;
     }
 
     public double getLost5() {

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Chart Page</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div id="chart-container" style="height: 400px;"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <label for="szacowaneZuzyciePC">Szacowane zużycie energii PC:</label>
+                <input type="text" id="szacowaneZuzyciePC" name="szacowaneZuzyciePC" onchange="updateEnergyConsumption()" th:value="${szacowaneZuzyciePC}" />
+                <input type="text" id="kosztEnergiiPC" name="kosztEnergiiPC" onchange="updateEnergyConsumption()" th:value="${kosztEnergiiPC}" />
+            </div>
+            <div class="col">
+                <label for="kosztEnergii">Koszt energii 1kWh:</label>
+                <input type="text" id="kosztEnergii" name="kosztEnergii" onchange="updateEnergyConsumption()" th:value="${kosztEnergii}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="szacowaneZuzycieGrzalka">Szacowane zużycie energii grzałka:</label>
+                <input type="text" id="szacowaneZuzycieGrzalka" name="szacowaneZuzycieGrzalka" onchange="updateEnergyConsumption()" th:value="${szacowaneZuzycieGrzalka}" />
+                <input type="text" id="kosztEnergiiGrzalka" name="kosztEnergiiGrzalka" onchange="updateEnergyConsumption()" th:value="${kosztEnergiiGrzalka}" />
+            </div>
+            <div class="col">
+                <label for="SCOP">SCOP:</label>
+                <input type="text" id="SCOP" name="SCOP" onchange="updateEnergyConsumption()" th:value="${SCOP}" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="szacowaneZuzycieCWU">Szacowanie zużycie energii CWU:</label>
+                <input type="text" id="szacowaneZuzycieCWU" name="szacowaneZuzycieCWU" onchange="updateEnergyConsumption()" th:value="${szacowaneZuzycieCWU}" />
+                <input type="text" id="kosztEnergiiCWU" name="kosztEnergiiCWU" onchange="updateEnergyConsumption()" th:value="${kosztEnergiiCWU}" />
+            </div>
+            <div class="col">
+                <label for="szacowaneZuzycieEnergiiRazem">RAZEM:</label>
+                <input type="text" id="szacowaneZuzycieEnergiiRazem" name="szacowaneZuzycieEnergiiRazem" th:value="${szacowaneZuzycieEnergiiRazem}" readonly />
+                <input type="text" id="kosztEnergiiRazem" name="kosztEnergiiRazem" th:value="${kosztEnergiiRazem}" readonly />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <<script th:inline="javascript">
+
+        var heatPumpId = /*[[${heatPumpId}]]*/ null; // Pobieranie wartości z Thymeleaf
+
+
+    function updateEnergyConsumption() {
+    const priceKwh = parseFloat(document.getElementById('kosztEnergii').value);
+    const scop = parseFloat(document.getElementById('SCOP').value);
+    const consumptionPC = parseFloat(document.getElementById('szacowaneZuzyciePC').value);
+    const consumptionHeater = parseFloat(document.getElementById('szacowaneZuzycieGrzalka').value);
+    const consumptionCWU = parseFloat(document.getElementById('szacowaneZuzycieCWU').value);
+
+    // Obliczenia
+    const energyCostPC = consumptionPC * priceKwh;
+    const energyCostHeater = consumptionHeater * priceKwh;
+    const energyCostCWU = consumptionCWU * priceKwh;
+
+    // Aktualizacja wyników
+    document.getElementById('kosztEnergiiPC').value = energyCostPC.toFixed(2);
+    document.getElementById('kosztEnergiiGrzalka').value = energyCostHeater.toFixed(2);
+    document.getElementById('kosztEnergiiCWU').value = energyCostCWU.toFixed(2);
+
+    document.getElementById('szacowaneZuzycieEnergiiGrzalka').value = consumptionHeater.toFixed(0) + " kWh";
+    document.getElementById('kosztEnergiiGrzalka').value = energyCostHeater.toFixed(2) + " zł";
+
+    document.getElementById('SCOP').value = scop.toFixed(2);
+
+    document.getElementById('szacowaneZuzycieEnergiiCWU').value = consumptionCWU.toFixed(0) + " kWh";
+    document.getElementById('kosztEnergiiCWU').value = energyCostCWU.toFixed(2) + " zł";
+
+    const totalEnergyConsumption = consumptionPC + consumptionHeater + consumptionCWU;
+    const totalEnergyCost = energyCostPC + energyCostHeater + energyCostCWU;
+
+    document.getElementById('szacowaneZuzycieEnergiiRazem').value = totalEnergyConsumption.toFixed(0);
+    document.getElementById('kosztEnergiiRazem').value = totalEnergyCost.toFixed(2);
+}
+</script>
+
+<script th:inline="javascript">
+
+    $(document).ready(function() {
+        $.ajax({
+            url: '/heatPumpCharts/' + heatPumpId,
+            success: function(result) {
+                var data = JSON.parse(result);
+                var temperatures = data.temperatures;
+                var heatingEfficiencies = data.heatingEfficiencies;
+                var heatPumpsPowerWithHeater = data.heatPumpsPowerWithHeater;
+                var energyDemandValues = data.energyDemandValues;
+
+                console.log(temperatures);
+                console.log(heatingEfficiencies);
+                console.log(heatPumpsPowerWithHeater);
+                console.log(energyDemandValues);
+
+
+                drawLineChart(temperatures, heatingEfficiencies, heatPumpsPowerWithHeater, energyDemandValues);
+            }
+        });
+
+        function drawLineChart(temperatures, heatingEfficiencies, heatPumpsPowerWithHeater, energyDemandValues) {
+            Highcharts.chart('chart-container', {
+                chart: {
+                    type: 'line',
+                    width: 500
+                },
+                title: {
+                    text: 'Line chart with multiple series'
+                },
+                xAxis: {
+                    categories: temperatures,
+                    title: {
+                        text: 'Temperature'
+                    }
+                },
+                yAxis: { // Single Y-axis for all series
+                    title: {
+                        text: 'Combined Data'
+                    }
+                },
+                tooltip: {
+                    shared: true,
+                    formatter: function() {
+                        return '<strong>' + this.x + ': </strong>' + this.series.name + ': ' + this.y;
+                    }
+                },
+                series: [{ // Multiple series with different data
+                    name: 'Wydajność grzewcza',
+                    data: heatingEfficiencies,
+                },
+                {
+                name: 'Zapotrzebowanie energetyczne',
+                data: energyDemandValues,
+                },
+                {
+                    name: 'Wydajność grzewcza + grzałki',
+                    data: heatPumpsPowerWithHeater,
+                    }]
+            });
+        }
+    });
+</script>
+</body>
+</html>

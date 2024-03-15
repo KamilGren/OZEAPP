@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Heat Pump Params</title>
+
+
+  <!-- Styl dla labeli -->
+  <style>
+        label {
+            color: #18192D !important; /* Dodanie !important, aby zabezpieczyć przed ewentualnym nadpisywaniem przez Bootstrap */
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+  <form id="heatPumpForm" action="/api/heatpumps/searchPump" onsubmit="submitForm()" method="GET">
+
+    <div class="form-group">
+      <label for="producent">Producent:</label>
+      <select class="form-control" id="producent" name="producent" onchange="loadTypes()">
+        <option th:each="producent : ${heatPumpProducents}" th:value="${producent}" th:text="${producent}"></option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="model">Model:</label>
+      <select class="form-control" id="model" name="model" onchange="loadTypes()">
+        <option th:each="model : ${heatPumpModels}" th:value="${model}" th:text="${model}"></option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="typ">Typ:</label>
+      <select class="form-control" id="typ" name="typ">
+      </select>
+    </div>
+
+  </form>
+</div>
+
+
+<script th:inline="javascript">
+
+
+    function loadTypes() {
+        var producentSelect = document.getElementById('producent');
+        var modelSelect = document.getElementById('model');
+        var typSelect = document.getElementById('typ');
+
+
+       if (producentSelect.value && modelSelect.value)
+       {
+
+        $.get('/api/heatpumps/getTypes?producent=' + producentSelect.value + '&model=' + modelSelect.value, function (data) {
+            typSelect.innerHTML = '<option value="" selected>-- Select type --</option>';
+
+            console.log(data);
+            data.forEach(function (typ) {
+                typSelect.innerHTML += '<option value="' + typ + '">' + typ + '</option>';
+            });
+
+        });
+    } else {
+        // Jeśli producent lub model są null, możemy wyczyścić listę typów
+        typSelect.innerHTML = '<option value="" selected>-- Select type --</option>';
+    }
+    }
+
+   function submitForm() {
+     return true;
+}
+
+<!--     function displayResults(data) {-->
+<!--        var resultsSection = document.getElementById('searchResults');-->
+<!--        var resultTableBody = document.getElementById('resultTableBody');-->
+
+<!--        // Czyść wyniki-->
+<!--        resultTableBody.innerHTML = '';-->
+
+<!--        // Wyświetl wyniki, jeśli są dostępne-->
+<!--        if (data.length > 0) {-->
+<!--            resultsSection.style.display = 'block'; // Pokaż sekcję wyników-->
+
+<!--            data.forEach(function (heatPump) {-->
+<!--                var row = '<tr>' +-->
+<!--                    '<td>' + heatPump.internalUnit + '</td>' +-->
+<!--                    '<td>' + heatPump.externalUnit + '</td>' +-->
+<!--                    '<td>' + heatPump.nominalPower + '</td>' +-->
+<!--                    '<td>' + heatPump.heaterPower + '</td>' +-->
+<!--                    '<td>' + heatPump.powerSupply + '</td>' +-->
+<!--                    '<td>' + heatPump.scop + '</td>' +-->
+<!--                    '<td>' + heatPump.warranty + '</td>' +-->
+<!--                    '</tr>';-->
+<!--                resultTableBody.innerHTML += row;-->
+<!--            });-->
+<!--        } else {-->
+<!--            resultsSection.style.display = 'none'; // Ukryj sekcję wyników, jeśli brak wyników-->
+<!--        }-->
+<!--    }-->
+
+
+</script>
+
+</body>
+</html>
